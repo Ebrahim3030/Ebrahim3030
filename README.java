@@ -1,71 +1,123 @@
-- 👋 [8/18, 6:21 AM] Ebrahim: Initially all m ∈ M and w ∈W are free
-While there is a man m who is free and hasn’t proposed to every woman
-Choose such a man m
-Let w be the highest-ranked woman in m’s preference list to whom m has not yet proposed
-If w is free then
-(m, w) become engaged
-Else w is currently engaged to m’
-If w prefers m to m’ then
-(m, w) become engaged
-m’ becomes free
-Else
-m remains free
-Endif
-Endif
-Endwhile
-Return the set S of engag
-[8/18, 6:46 AM] Ebrahim: 1. for w = 0, W
- 2. do V [0,w] ← 0
- 3. for i=0, n
- 4. do V [i, 0] ← 0  
- 5. for w = 0, W
- 6. do if (wi≤ w & vi + V [i-1, w -  wi]> V [i -1,W])
- 7. then V [i, W] ← vi + V [i - 1, w - wi]
- 8. else V [i, W] ← V [i - 1, w]
-[8/18, 6:46 AM] Ebrahim: Purpose:Tofindthemaximumvalueorprofitfromthegivennitemsandtheirweightswi//Input:Asetofitems1,2,…….n,with,w1,…,wN,andvaluesv1,v2……,vnwithknapsackcapacityW//Output:MaxProfitM[n,W
-[8/18, 7:13 AM] Ebrahim: Input, grapgh with edges and vertices
-Output, set of edges of minimum spanning tree
+#include<stdio.h>
+void main() {
+int data[11];
+int dataatrec[11],c,c1,c2,c3,c4,i;
+printf("Enter 7 bits of data one by one\n");
+scanf("%d",&data[0]);
+scanf("%d",&data[1]);
+scanf("%d",&data[2]);
+scanf("%d",&data[4]);
+scanf("%d",&data[5]);
+scanf("%d",&data[6]);
+scanf("%d",&data[8]);
+ //Calculation of even parity
+data[10]=data[0]^data[2]^data[4]^data[6]^data[8];
+data[9]=data[0]^data[1]^data[4]^data[5]^data[8];
+data[7]=data[4]^data[5]^data[6];
+data[3]=data[0]^data[1]^data[2];
+printf("\nEncoded data is\n");
+for(i=0;i<11;i++)
+printf("%d",data[i]);
+printf("\n\nEnter received data bits one by one\n");
+for(i=0;i<11;i++)
+scanf("%d",&dataatrec[i]);
+ c1=dataatrec[10]^dataatrec[8]^dataatrec[6]^dataatrec[4]^dataatrec[2]^dataatrec[0];
+ c2=dataatrec[9]^dataatrec[8]^dataatrec[5]^dataatrec[4]^dataatrec[1]^dataatrec[0];
+ c3=dataatrec[7]^dataatrec[6]^dataatrec[5]^dataatrec[4];
+ c4=dataatrec[3]^dataatrec[2]^dataatrec[1]^dataatrec[0];
+ c=c4*8+c3*4+c2*2+c1 ;
+ printf("%d",c);
+if(c==0) {
+printf("\nNo error while transmission of data\n");
+ }
+else {
+printf("\nError on position %d",c);
+printf("\nData sent : ");
+for(i=0;i<11;i++)
+printf("%d",data[i]);
+printf("\nData received : ");
+for(i=0;i<11;i++)
+printf("%d",dataatrec[i]);
+printf("\nCorrect message is\n");
+ //if errorneous bit is 0 we complement it else vice versa
+if(dataatrec[11-c]==0)
+dataatrec[11-c]=1;
+else
+dataatrec[11-c]=0;
+for (i=0;i<11;i++) {
+printf("%d",dataatrec[i]);
 
-Algorithm kruksal
-Sort the edges in order of increasing cost
-Initially T=خالي
-For each edge e=(v,w) in the sorted order
-If there is currently no path from v to w in (v,T) then (adding e will not create a cycle )
-Add e to T 
-End if
-End for
-Return set of edges
-[8/18, 7:21 AM] Ebrahim: Dijkar's algorithm
-Let s be the set of exposed nodes
-For each uتنمتي S we store a distance (u)
-Initially s={s} and d(s) =0
-While sلاتساوي V
-Select a node vليست جزء  with at least one edge from S for which dشرطة(v)=min d(u)+ le is as smart as possible 
-e=(u,v):uتنتميS
-Add V to S and define d(v)=dشرطةv
-Endwhile
-[8/18, 7:28 AM] Ebrahim: The problem can be solved using quicksort algorithm where the rearrangement of element is accomplished by picking some element ofa[ ]
-Say t=a[s] and then reorderingthe other elements so that sorted sub arrays need not be merged later and the elements appearing before t in a[1:n] are less than or equal to t and all elements appearing after the are greater than or equal to t
-This is called partitioning
-[8/18, 9:24 AM] Ebrahim: Suitable algorithm is BFS
-Algorithm BFS
-Mark s as 'visited'
-Initialize R={S}
-While Li is not empty
-For each node u inLi
-Consider each edge(u,v) incident to V
-If V is not marked 'visited'
-then Mark V as visited 
-Add V to set R and to layerLi+1
-End if
-End for
-Endwhile
-[8/18, 9:27 AM] Ebrahim: Initialize S to be stock of one element S
-While S is not empty
-Take a node u from S
-If Explored[u] = False then
-For each edge (u,v) incident to u
-Add v to stock S
-End for
-Endif
-Endwhile
+}
+
+}
+}
+
+
+
+
+#include<stdio.h>
+#include<string.h>
+#define N strlen(g)
+  char t[28],cs[28],g[] = "10001000000100001";
+  int a,e,c;
+  void xor(){
+        for(c=1;c<N;c++)
+                cs[c] = ((cs[c]==g[c])?'0':'1');
+
+  }
+
+void cRc(){
+        for(e=0;e<N;e++)
+                cs[e] = t[e];
+        do{
+                if(cs[0]=='1')
+                        xor();
+                for(c=0;c<N-1;c++)
+                        cs[c]=cs[c+1];
+                        cs[c] = t[e++];
+
+        }while(e<=a+N-1);
+}
+
+int main(){
+  printf("\n enter data : ");
+  scanf("%s",t);
+  printf("\n ----------------------------");
+  printf("\n generate Poly : %s",g);
+  a = strlen(t);
+  for(e=a;e<a+N-1;e++)
+          t[e]='0';
+  printf("\n----------------------");
+  printf("modified data is  : %s",t);
+  printf("\n---------------------------");
+  cRc();
+  printf("\m cRc CHeckSum is : %s", cs);
+  for(e=a;e<a+N-1;e++)
+          t[e]=cs[e-a];
+ printf("\n----------------------------");
+ printf("\n final codeword id  : %s" ,t);
+ printf("\n-----------------------------");
+ printf("\n test error detection 0(yes) 1(no)  ?  : ");
+ scanf("%d",&e);
+ if(e==0)
+         do{
+            printf("\n enter the position where the error to be inserted:");
+            scanf("%d",&e);
+
+         }while(e==0||e>a+N-1);
+
+     t[e-1] =((t[e-1]=='0')?'1':'0');
+   printf("\n----------------------------");
+   printf("\nErrorneous data :  %s\n",t);
+   cRc();
+   for(e=0;(e<N-1)&&(cs[e]!='1');e++)
+           if(e<N-1){
+                   printf("\nCrc checksum is : %s",cs);
+                printf("\nError detected \n\n");
+           }else{
+                printf("\ncRC checkSum is %s",cs);
+                printf("\n n o error detected ");
+
+           }
+
+-- INSERT --                                                                                                                                                       1,11          Top
